@@ -29,9 +29,17 @@ class UserRegisterForm(forms.Form):
             raise forms.ValidationError('email already exists')
         return email
 
-    def clean_repassword(self):
-        pass1 = self.cleaned_data['password']
-        repass = self.cleaned_data['repassword']
-        if pass1 != repass:
-            raise forms.ValidationError('passwoed not match repassword')
-        return pass1
+    # def clean_repassword(self):
+    #     pass1 = self.cleaned_data['password']
+    #     repass = self.cleaned_data['repassword']
+    #     if pass1 != repass:
+    #         raise forms.ValidationError('passwoed not match repassword')
+    #     return pass1
+
+    def clean(self):
+        cleaned_data = super().clean()
+        pass1 = cleaned_data.get('password')
+        pass2 = cleaned_data.get('repassword')
+        if pass1 and pass2:
+            if pass1 != pass2:
+                raise forms.ValidationError('passwoed not match repassword')

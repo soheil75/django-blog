@@ -16,7 +16,7 @@ class Article(models.Model):
 
     writer = models.ForeignKey(User,on_delete= models.CASCADE)
     title = models.CharField(max_length=150)
-    slug = models.SlugField(max_length=150 ,unique=True)
+    slug = models.SlugField(max_length=150 ,unique=True,allow_unicode=True)
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
