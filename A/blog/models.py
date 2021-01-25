@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 class PublishArticleManager(models.Manager):
@@ -17,7 +18,7 @@ class Article(models.Model):
     writer = models.ForeignKey(User,on_delete= models.CASCADE)
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150 ,unique=True,allow_unicode=True)
-    body = models.TextField()
+    body = RichTextUploadingField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
